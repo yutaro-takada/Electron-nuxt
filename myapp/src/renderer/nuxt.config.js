@@ -1,16 +1,4 @@
 module.exports = {
-  router: {
-    extendRoutes(routes) {
-      routes.push(
-        {path:'/delete',redirect:'/'},
-      )
-    }
-  },
-  plugins: [
-    {
-      
-    },
-  ],
   ssr: false,
   target: "static",
   head: {

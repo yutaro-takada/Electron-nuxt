@@ -20,7 +20,6 @@
     "@types/node": "14.14.9"
   },
   "devDependencies": {
-    "@nuxtjs/router": "^1.7.0",
     "@xpda-dev/core": "^0.1.6",
     "@xpda-dev/electron-builder": "^0.2.1",
     "@xpda-dev/electron-launcher": "^0.3.0",
@@ -41,15 +40,14 @@
     "bootstrap-vue": "^2.21.2",
     "electron-prebuilt": "^1.4.13",
     "electron-reload": "^2.0.0-alpha.1",
-    "element-ui": "^2.15.6",
     "eslint": "^8.5.0",
     "express": "^4.17.2",
     "materialize-css": "^1.0.0-rc.2",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.15",
+    "path": "^0.12.7",
     "vue": "^2.6.14",
     "vue-js-modal": "^2.0.1",
-    "vue-router": "^3.5.3",
-    "vuejs-dialog": "^1.4.2"
+    "vue-router": "^3.5.3"
   }
 }
