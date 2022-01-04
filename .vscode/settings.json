@@ -1,0 +1,8 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "html.format.wrapLineLength": 0,
+  "html.format.wrapAttributes": "preserve-aligned",
+  "prettier.proseWrap": "never"
+}
