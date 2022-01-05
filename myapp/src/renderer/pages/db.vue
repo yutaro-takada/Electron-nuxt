@@ -7,24 +7,27 @@
             <input id="input-url" v-model="input" type="text" />
             <b-button variant="primary" @click="onAlertEntry(input)">登録</b-button>
             <b-button variant="danger" @click="clear(input)">Clear</b-button>
-            <b-button variant="success" @click="openModal()">編集</b-button>
+            <b-button variant="success">編集</b-button>
         </form>
         <!-- DB登録内容を表示 -->
         <div class="container" style="background-color: pink;">
             <ul>
                 <li v-for="item in items" :key="item.id" style="list-style: none;">
                     {{ item.name }}
-                    <modal v-if="isOpen" name="mdl" :draggable="true" :resizable="true">
-                        <modal-header>{{ item.id }} {{ item.name }}</modal-header>
-                        <modal-body>
-                            <p>{{ item.name }}</p>
-                            <input type="text" v-model="item.name" />
-                        </modal-body>
-                    </modal>
+                    <div v-show="isOpen" name="mdl" :draggable="true" :resizable="true">
+                        <!-- <modal-header>{{ item.id }}</modal-header> -->
+                        <div>
+                            <p>{{ item.id }}</p>
+                            <input type="text" v-model="editinput" />
+                        </div>
+                    </div>
+                    <b-button v-show="isOpen" variant="success" @click="edit(item.id)">更新</b-button>
                     <b-button variant="danger" :v-bind="item.id" @click="onAlterDelete(item)">削除</b-button>
                 </li>
             </ul>
         </div>
+        <b-button variant="success" @click="openModal()">開く</b-button>
+        <b-button @click="closeModal()">閉じる</b-button>
     </div>
 </template>
 
@@ -37,8 +40,8 @@ export default {
         return {
             input: '',
             items: [],
-            
-            isOpen: false
+            isOpen: false,
+            editinput:''
         };
     },
     async asyncData({ $axios }) {
@@ -47,9 +50,17 @@ export default {
         return { items };
     },
     methods: {
+        async edit(id){
+            alert(this.editinput);    
+            let uri = "http://localhost:5000/edit/" + id;
+            await this.$axios.$post(uri, { name: this.editinput });
+            location.reload();
+        },
         openModal(){
-            alert('aaa'),
-            isOpen = true;
+            this.isOpen= true;
+        },
+        closeModal(){
+            this.isOpen = false;
         },
         //DBにデータを登録する
         async entry() {

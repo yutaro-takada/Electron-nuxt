@@ -19,20 +19,22 @@ app.get('/', function (req, res) {
   connection.query(sql,function (error, result,fields) {
     if (error) {
         return res.status(400).json({error:error.message})
-      }
+    }
+        //console.log('First Connect')
         return res.send(result);
   });
 });
 
-app.get('/edit/:id', (req, res) => {
-  const sql = "SELECT * FROM test WHERE id = ?";
-  connection.query(sql, req.params.id, function (err, result, fields) {
+app.post('/edit/:id', (req, res) => {
+  const sql = "UPDATE test SET name = ? WHERE id = ?";
+  connection.query(sql, [req.body.name,req.params.id], function (err, result, fields) {
     console.log(result);
     if (err) {
       console.log(err);
       return res.status(400).json({ err: err.message });
     }
-    return res.send(result);
+      console.log('EDIT SUCCESS!')
+      return res.send(result);
   })
 })
 
@@ -43,8 +45,8 @@ app.post('/', (req, res) => {
       console.log(err);
       return res.status(400).json({ err: err.message });
     }
-    console.log('INSERT SUCCESS!');
-        return res.send(result);
+      console.log('INSERT SUCCESS!');
+      return res.send(result);
   })
 });
 
@@ -55,8 +57,8 @@ app.post('/delete/:id', (req, res) => {
       console.log(err);
       return res.status(400).json({ err: err.message });
     }
-    console.log('DELETE SUCESS!');
-        return res.send(result);
+      console.log('DELETE SUCESS!');
+      return res.send(result);
   })
 });
 
