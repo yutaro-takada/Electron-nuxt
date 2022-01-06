@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.get('/', function (req, res) {
   res.set({ 'Access-Control-Allow-Origin': '*' }); 
-  const sql = 'select * from test;';
+  const sql = 'select * from test order by id;';
   connection.query(sql,function (error, result,fields) {
     if (error) {
         return res.status(400).json({error:error.message})

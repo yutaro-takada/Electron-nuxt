@@ -5,7 +5,7 @@
         <!-- 入力欄 -->
         <form>
             <input id="input-url" v-model="input" type="text" />
-            <b-button variant="primary" @click="onAlertEntry(input)">登録</b-button>
+            <b-button variant="primary" @click="onAlertEntry(input)" title="あああ">登録</b-button>
             <b-button variant="danger" @click="clear(input)">Clear</b-button>
             <b-button variant="success">編集</b-button>
         </form>

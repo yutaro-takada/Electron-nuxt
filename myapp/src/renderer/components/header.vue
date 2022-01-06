@@ -28,6 +28,7 @@ export default {
   height: 50px;
   display: flex;
   background-color: #364758;
+  color: #fff;
 }
 
 nav {

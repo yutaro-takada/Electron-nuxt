@@ -1,27 +1,20 @@
 <template>
   <div class="e-nuxt-container">
     <div class="e-nuxt-content">
-      <div class="e-nuxt-logo">
-        <img style="max-width: 100%" src="~assets/electron-nuxt.png" />
-      </div>
-      <div class="e-nuxt-system-info">
+      
+      <!-- <div class="e-nuxt-system-info">
         <system-information />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import SystemInformation from "@/components/SystemInformation.vue";
 
 export default {
-  // async asyncData({ $axios }) {
-  //   const items = await $axios.$get("http://localhost:5000");
-  //   return { items };
-  // },
   name: "IndexPage",
   components: {
-    SystemInformation,
+    // SystemInformation,
   },
   data() {
     return {
@@ -29,7 +22,6 @@ export default {
     };
   },
   methods: {
-
   },
 };
 </script>
