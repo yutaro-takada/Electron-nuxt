@@ -1,11 +1,11 @@
 <template>
   <header class="main-header">
-  <div >
-      <div class="sub-header"><nuxt-link to="/db" exact> DB page </nuxt-link></div>
-      <div class="sub-header"><nuxt-link to="/book" exact> Book page </nuxt-link></div>
-      <div class="sub-header"><nuxt-link to="/" exact> System info </nuxt-link></div>
-      <div class="sub-header"><nuxt-link to="/" exact> System info </nuxt-link></div>
-  </div>
+  <nav> 
+      <div><nuxt-link to="/db" exact> DB page </nuxt-link></div>
+      <div><nuxt-link to="/book" exact> Book page </nuxt-link></div>
+      <div><nuxt-link to="/" exact> System info </nuxt-link></div>
+      <div><nuxt-link to="/" exact> System info </nuxt-link></div>
+  </nav>
   <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
   <label for="openSidebarMenu" class="sidebarIconToggle">
     <div class="spinner diagonal part-1"></div>
@@ -34,19 +34,29 @@ export default {
 </script>
 
 <style scoped>
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+nav div {
+  height: 100%;
+  margin: 0 20px;
+  display: flex;
+  align-items: center;
+}
+
+nav div:hover{
+    opacity:0.9;
+}
+
 .main-header {
-  height: 60px;
+  height: 50px;
   display: flex;
   background-color: #FC466B;
   background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%);
   color: #fff;
-}
-.sub-header{
-    font-size:30px;
-    background-color:cadetblue;
-    display: inline;
-    padding:0px 10px;
-    margin:0px 50px;
 }
 
 a {
@@ -59,7 +69,7 @@ a {
 }
 
 a:hover {
-  opacity: 0.9;
+  opacity: 0.5;
 }
 
 html, body {
@@ -79,7 +89,7 @@ body {
     position: fixed;
     left: 0;
     width: 250px;
-    margin-top: 60px;
+    margin-top: 50px;
     transform: translateX(-250px);
     transition: transform 250ms ease-in-out;
     background: linear-gradient(180deg, #FC466B 0%, #3F5EFB 100%);
@@ -128,9 +138,9 @@ input[type=checkbox] {
     z-index: 99;
     height: 100%;
     width: 100%;
-    top: 22px;
+    top: 16px;
     left: 15px;
-    height: 22px;
+    height:22px;
     width: 22px;
 }
 .spinner {
@@ -146,7 +156,7 @@ input[type=checkbox] {
     box-sizing: border-box;
     position: relative;
     float: left;
-    margin-top: 3px;
+    margin-top: 4px;
 }
 .diagonal.part-1 {
     position: relative;
