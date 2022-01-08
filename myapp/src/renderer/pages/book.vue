@@ -86,7 +86,7 @@ export default {
 
 <style>
 h1 {
-  margin: 0 10px;
+  margin: 0px 10px;
 }
 
 #input-url {

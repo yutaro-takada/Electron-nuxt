@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>DB ページ</h1>
         <p>DBへのCRUD操作を行う</p>
         <!-- 入力欄 -->
         <form>
@@ -108,7 +107,8 @@ export default {
 
 <style>
 h1 {
-    margin: 0 10px;
+    margin: 5px 10px;
+    background-color: red;
 }
 
 #input-url {

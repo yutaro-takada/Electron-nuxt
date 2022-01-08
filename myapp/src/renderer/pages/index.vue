@@ -1,20 +1,14 @@
 <template>
-  <div class="e-nuxt-container">
-    <div class="e-nuxt-content">
-      
-      <!-- <div class="e-nuxt-system-info">
-        <system-information />
-      </div> -->
-    </div>
-  </div>
+  
+  <div style="background-color:aqua;">あ</div>
 </template>
 
 <script>
-
+import appHeader from '@/components/header'
 export default {
   name: "IndexPage",
   components: {
-    // SystemInformation,
+    appHeader
   },
   data() {
     return {
