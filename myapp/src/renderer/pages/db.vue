@@ -78,7 +78,7 @@ export default {
                  pass:this.input_password
             });
             this.clear();
-            // location.reload();
+            location.reload();
         },
         //DBからデータ(単体)を削除する
         async deleteData(id) {
