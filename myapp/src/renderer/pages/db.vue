@@ -1,6 +1,5 @@
 <template>
     <div>
-        
         <!-- 入力欄 -->
         <form class="container">
             <h5>USER情報の登録</h5>
@@ -16,23 +15,23 @@
             <b-button variant="danger" @click="clear()">Clear</b-button>
             <b-button variant="success">編集</b-button>
         <!-- DB登録内容を表示 -->
-        <!-- <div class="container" style="background-color: pink;">
+        <div class="container" style="background-color: pink;">
             <ul>
                 <li v-for="item in items" :key="item.id" style="list-style: none;">
                     {{ item.name }}
-                    <div v-show="isOpen" name="mdl" :draggable="true" :resizable="true">
+                    <div name="mdl" :draggable="true" :resizable="true">
                         <div>
                             <p>{{ item.id }}</p>
-                            <input type="text" v-model="editinput" />
+                            <input type="text" v-model="edit_input" />
                         </div>
                     </div>
-                    <b-button v-show="isOpen" variant="success" @click="edit(item.id)">更新</b-button>
+                    <!-- <b-button variant="success">更新</b-button> -->
                     <b-button variant="danger" :v-bind="item.id" @click="onAlterDelete(item)">削除</b-button>
                 </li>
             </ul>
         </div>
-        <b-button variant="success" @click="openModal()">開く</b-button>
-        <b-button @click="closeModal()">閉じる</b-button> -->
+        <!-- <b-button variant="success" @click="openModal()">開く</b-button>
+        <b-button @click="closeModal()">閉じる</b-button> --> 
     </div>
 </template>
 
@@ -44,7 +43,8 @@ export default {
             input_email:'',
             input_password:'',
             items: [],
-            input:[]
+            input:[],
+            edit_input:''
         };
     },
     async asyncData({ $axios }) {
@@ -87,16 +87,16 @@ export default {
             location.reload();
         },
         //「削除」ボタンのクリックイベント処理
-        onAlterDelete() {
-            const result = window.confirm(item.name + 'を削除します');
-            if (result) {
-                alert('削除が完了しました');
+        onAlterDelete(item) {
+            // const result = window.confirm(item.name + 'を削除します');
+            //if (result) {
+                //alert('削除が完了しました');
                 this.deleteData(item.id);
-            }
-            else {
-                alert('削除を中止しました');
-                console.log('NO!');
-            }
+            //}
+            //else {
+              //  alert('削除を中止しました');
+              //  console.log('NO!');
+            //}
         },
         // 入力欄をクリアする
         clear() {

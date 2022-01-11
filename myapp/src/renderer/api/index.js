@@ -15,12 +15,11 @@ app.use(express.json());
 
 app.get('/', function (req, res) {
   res.set({ 'Access-Control-Allow-Origin': '*' }); 
-  const sql = 'select * from test order by id;';
+  const sql = 'select * from users order by id;';
   connection.query(sql,function (error, result,fields) {
     if (error) {
         return res.status(400).json({error:error.message})
     }
-        //console.log('First Connect')
         return res.send(result);
   });
 });
@@ -56,7 +55,7 @@ app.post('/', (req, res) => {
 });
 
 app.post('/delete/:id', (req, res) => {
-  const sql = "DELETE FROM test WHERE id = ?";
+  const sql = "DELETE FROM users WHERE id = ?";
   connection.query(sql, req.params.id, function (err, result, fields) {
     if (err) {
       console.log(err);
