@@ -25,7 +25,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/edit/:id', (req, res) => {
-  const sql = "UPDATE test SET name = ? WHERE id = ?";
+  const sql = "UPDATE users SET name = ? WHERE id = ?";
   connection.query(sql, [req.body.name,req.params.id], function (err, result, fields) {
     console.log(result);
     if (err) {

@@ -88,15 +88,15 @@ export default {
         },
         //「削除」ボタンのクリックイベント処理
         onAlterDelete(item) {
-            // const result = window.confirm(item.name + 'を削除します');
-            //if (result) {
-                //alert('削除が完了しました');
+            const result = window.confirm(item.name + 'を削除します');
+            if (result) {
+                alert('削除が完了しました');
                 this.deleteData(item.id);
-            //}
-            //else {
-              //  alert('削除を中止しました');
-              //  console.log('NO!');
-            //}
+            }
+            else {
+               alert('削除を中止しました');
+               console.log('NO!');
+            }
         },
         // 入力欄をクリアする
         clear() {
