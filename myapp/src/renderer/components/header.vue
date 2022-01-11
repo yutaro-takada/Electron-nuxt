@@ -20,7 +20,7 @@
       <li><nuxt-link to="/db" exact> DB page </nuxt-link></li>
       <li><nuxt-link to="/book" exact> Book page </nuxt-link></li>
       <li><nuxt-link to="/" exact> System info </nuxt-link></li>
-      <li><nuxt-link to="/" exact> System info </nuxt-link></li>
+      <!-- <li><nuxt-link to="/" exact> System info </nuxt-link></li> -->
     </ul>
   </div>
   

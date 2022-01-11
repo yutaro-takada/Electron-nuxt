@@ -39,8 +39,9 @@ app.post('/edit/:id', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  const sql = "INSERT INTO test SET ?"
-  connection.query(sql, req.body, function (err, result, fields) {
+  const sql = "INSERT INTO users SET ?"
+  connection.query(sql,
+    { name: req.body.name, email: req.body.email, pass: req.body.pass },function (err, result, fields) {
     if (err) {
       console.log(err);
       return res.status(400).json({ err: err.message });
