@@ -11,19 +11,18 @@
             <input id="input-password" v-model="input_password" type="password"/><br>
             {{input}}
         </form>
-            <b-button variant="primary" @click="onAlertEntry()" title="あああ">登録</b-button>
-            <b-button variant="danger" @click="clear()">Clear</b-button>
-            <b-button variant="success">編集</b-button>
+            <div style="margin:10px;text-align:center;">
+                <b-button variant="primary" @click="onAlertEntry()" title="あああ">登録</b-button>
+                <b-button variant="danger" @click="clear()">Clear</b-button>
+                <b-button variant="success">編集</b-button>
+            </div>
         <!-- DB登録内容を表示 -->
         <div class="container" style="background-color: pink;">
             <ul>
                 <li v-for="item in items" :key="item.id" style="list-style: none;">
                     {{ item.name }}
-                    <div name="mdl" :draggable="true" :resizable="true">
-                        <div>
-                            <p>{{ item.id }}</p>
-                            <input type="text" v-model="edit_input" />
-                        </div>
+                    <div name="mdl" :draggable="true" :resizable="true"><p>{{ item.id }}</p>
+                    <!-- <input type="text" v-model="edit_input" /> -->
                     </div>
                     <!-- <b-button variant="success">更新</b-button> -->
                     <b-button variant="danger" :v-bind="item.id" @click="onAlterDelete(item)">削除</b-button>
