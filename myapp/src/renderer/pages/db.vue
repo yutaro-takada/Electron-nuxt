@@ -115,8 +115,6 @@ form{
     padding: 10px;
     margin-bottom:10px;
 }
-form input{
-    /* margin:5px; */
-}
+
 
 </style>

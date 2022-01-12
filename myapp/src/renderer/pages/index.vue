@@ -1,5 +1,4 @@
 <template>
-  
   <div style="background-color:aqua;">あ</div>
 </template>
 

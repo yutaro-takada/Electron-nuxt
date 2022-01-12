@@ -1,6 +1,6 @@
 <template>
  <div>
-  <h1>ログインユーザ</h1>
+  <h1>ログインページ</h1>
   <form @submit.prevent="loginUser">
     <div class="form-group">
       <label for="email">Email:</label>
@@ -17,11 +17,11 @@
 
 <script>
 export default {
-  middleware({ store, redirect }) {
-    if(store.$auth.loggedIn) {
-      redirect('/');
-    }
-  },
+  // middleware({ store, redirect }) {
+  //   if(store.$auth.loggedIn) {
+  //     redirect('/');
+  //   }
+  // },
   data() {
     return {
       user:{
@@ -31,11 +31,11 @@ export default {
     }
   },
   methods: {
-    loginUser(){
-        this.$auth.loginWith('local',{
-          data:this.user
-        })
-      },
+    // loginUser(){
+    //     this.$auth.loginWith('local',{
+    //       data:this.user
+    //     })
+    //   },
   }
 }
 </script>

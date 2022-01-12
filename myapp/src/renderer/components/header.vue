@@ -3,7 +3,7 @@
   <nav> 
       <div><nuxt-link to="/db" exact> DB page </nuxt-link></div>
       <div><nuxt-link to="/book" exact> Book page </nuxt-link></div>
-      <div><nuxt-link to="/" exact> System info </nuxt-link></div>
+      <div><nuxt-link to="/login" exact> Login </nuxt-link></div>
       <div><nuxt-link to="/" exact> System info </nuxt-link></div>
   </nav>
   <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
@@ -19,7 +19,7 @@
       <li><a href="https://instagram.com/plavookac" target="_blank">Instagram</a></li>
       <li><nuxt-link to="/db" exact> DB page </nuxt-link></li>
       <li><nuxt-link to="/book" exact> Book page </nuxt-link></li>
-      <li><nuxt-link to="/" exact> System info </nuxt-link></li>
+      <li><nuxt-link to="/login" exact> Login </nuxt-link></li>
       <!-- <li><nuxt-link to="/" exact> System info </nuxt-link></li> -->
     </ul>
   </div>
@@ -156,7 +156,7 @@ input[type=checkbox] {
     box-sizing: border-box;
     position: relative;
     float: left;
-    margin-top: 4px;
+    margin-top: 3px;
 }
 .diagonal.part-1 {
     position: relative;
@@ -169,7 +169,7 @@ input[type=checkbox] {
     box-sizing: border-box;
     position: relative;
     float: left;
-    margin-top: 3px;
+    margin-top: 2px;
 }
 input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
     transition: all 0.3s;
