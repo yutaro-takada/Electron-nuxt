@@ -9,12 +9,13 @@
             <input id="inp_email" v-model="input_email" type="email"/><br>
             <label for="">Pass Word</label><br>
             <input id="input-password" v-model="input_password" type="password"/><br>
-            {{this.input}}
+            <!-- {{this.input}} -->
+            <div style="padding-top:5px;">
+                <b-button variant="danger" @click="clear()">Clear</b-button>
+            </div>
         </form>
             <div style="margin:10px;text-align:center;">
                 <b-button variant="primary" @click="onAlertEntry()" title="あああ">登録</b-button>
-                <b-button variant="danger" @click="clear()">Clear</b-button>
-                <b-button variant="success">編集</b-button>
             </div>
         <!-- DB登録内容を表示 -->
         <table>
