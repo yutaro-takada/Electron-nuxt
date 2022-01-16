@@ -9,7 +9,7 @@
             <input id="inp_email" v-model="input_email" type="email"/><br>
             <label for="">Pass Word</label><br>
             <input id="input-password" v-model="input_password" type="password"/><br>
-            {{input}}
+            {{this.input}}
         </form>
             <div style="margin:10px;text-align:center;">
                 <b-button variant="primary" @click="onAlertEntry()" title="あああ">登録</b-button>
@@ -17,24 +17,31 @@
                 <b-button variant="success">編集</b-button>
             </div>
         <!-- DB登録内容を表示 -->
-        <div class="container" style="background-color: pink;">
-            <ul>
-                <li v-for="item in items" :key="item.id" style="list-style: none;">
-                    {{ item.name }}
-                    <div name="mdl" :draggable="true" :resizable="true"><p>{{ item.id }}</p>
-                    <!-- <input type="text" v-model="edit_input" /> -->
-                    </div>
-                    <!-- <b-button variant="success">更新</b-button> -->
-                    <b-button variant="danger" :v-bind="item.id" @click="onAlterDelete(item)">削除</b-button>
-                </li>
-            </ul>
-        </div>
-        <!-- <b-button variant="success" @click="openModal()">開く</b-button>
-        <b-button @click="closeModal()">閉じる</b-button> --> 
+        <table>
+            <thead>
+                <tr>
+                    <th v-for="(header,index) in headers" v-bind:key="index">
+                        {{ header }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in items" v-bind:key="item.id">
+                    <th>{{index +1}}</th>
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.pass}}</td>
+                    <td><b-button variant="success">編集</b-button></td>
+                    <td><b-button variant="danger" @click="clear()">削除</b-button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 
 <script>
+const headers =['NO','ID','名前','Mail','Pass','Edit','Delete'];
 export default {
     data() {
         return {
@@ -43,7 +50,8 @@ export default {
             input_password:'',
             items: [],
             input:[],
-            edit_input:''
+            edit_input:'',
+            headers:headers
         };
     },
     async asyncData({ $axios }) {
@@ -52,7 +60,6 @@ export default {
         return { items };
     },
     methods: {
-        
         //「登録」ボタンのクリックイベント処理
         onAlertEntry() {
             this.input.push(this.input_name);
@@ -113,6 +120,20 @@ form{
     text-align: center;
     padding: 10px;
     margin-bottom:10px;
+}
+table {
+  border: solid 1px #ccc;
+  border-collapse:collapse;
+  margin: auto;
+}
+th {
+  padding: 5px;
+  border: solid 1px #ccc;
+  background-color: #eee;
+}
+td {
+  padding: 5px;
+  border: solid 1px #ccc;
 }
 
 

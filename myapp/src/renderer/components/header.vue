@@ -54,7 +54,6 @@ nav div:hover{
 .main-header {
   height: 50px;
   display: flex;
-  background-color: #FC466B;
   background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%);
   color: #fff;
 }
