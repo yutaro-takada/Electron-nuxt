@@ -1,52 +1,75 @@
 <template>
-  <div style="background-color:aqua;">あ</div>
+  <div id="app">
+  <vue-good-table 
+  :columns="columns" 
+  :rows="rows" 
+  :search-options="{
+    enabled: true,
+    trigger: 'enter',
+    skipDiacritics: true,
+    placeholder: 'Search this table',
+    }"
+    @on-cell-click="onRowClick()"
+  />
+</div>
 </template>
 
 <script>
+import { VueGoodTable } from 'vue-good-table';
 import appHeader from '@/components/header'
 export default {
-  name: "IndexPage",
   components: {
-    appHeader
+    appHeader,
+    VueGoodTable,
   },
-  data() {
+  data () {
     return {
-      externalContent: '',
-    };
-  },
-  methods: {
-  },
+      columns: [
+        {
+        label: 'id',
+        field: 'id',
+        type: 'number',
+      },
+      {
+        label: 'Name',
+      　field: 'name',
+      },
+      {
+        label: 'Age',
+        field: 'age',
+        type: 'number',
+      },
+      // {
+      //   label: 'Created On',
+      //   field: 'createdAt',
+      //   type: 'date',
+      //   dateInputFormat: 'yyyy-MM-dd',
+      //   dateOutputFormat:'YYYY-MM-DD',
+      // },
+      {
+        label: 'Percent',
+        field: 'score',
+        type: 'percentage',
+      },
+      ],
+      rows: [
+      { id:1, name:"John", age: 20, createdAt: '2021-10-31',score: 0.03343 },
+      { id:2, name:"Jane", age: 24, createdAt: '2011-10-31', score: 0.03343 },
+      { id:3, name:"Susan", age: 16, createdAt: '2011-10-30', score: 0.03343 },
+      { id:4, name:"Chris", age: 55, createdAt: '2011-10-11', score: 0.03343 },
+      { id:5, name:"Dan", age: 40, createdAt: '2011-10-21', score: 0.03343 },
+      { id:6, name:"John", age: 20, createdAt: '2011-10-31', score: 0.03343 },
+      ]
+      }
+    },
+    methods:{
+      onRowClick : function(params) {
+      alert('RowClick');
+    },
+    }
 };
 </script>
 
 <style>
-.e-nuxt-container {
-  min-height: calc(100vh - 50px);
-  background: linear-gradient(to right, #ece9e6, #ffffff);
-  font-family: Helvetica, sans-serif;
-}
 
-.e-nuxt-content {
-  display: flex;
-  justify-content: space-around;
-  padding-top: 50px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.e-nuxt-logo {
-  width: 400px;
-}
-
-.e-nuxt-system-info {
-  padding: 20px;
-  border-top: 1px solid #397c6d;
-  border-bottom: 1px solid #397c6d;
-}
-
-.e-nuxt-links {
-  padding: 20px 0;
-  display: flex;
-  /* justify-content: center; */
-}
 </style>
