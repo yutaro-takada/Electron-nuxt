@@ -18,10 +18,10 @@
                 <b-button variant="primary" @click="onAlertEntry()" title="あああ">登録</b-button>
             </div>
         <!-- DB登録内容を表示 -->
-        <table>
+        <!-- <table>
             <thead>
                 <tr>
-                    <th v-for="(header,index) in headers" v-bind:key="index">
+                    <th v-for="(header,index) in headers" v-bind:key="index" class="fixed01">
                         {{ header }}
                     </th>
                 </tr>
@@ -37,13 +37,22 @@
                     <td><b-button variant="danger" @click="clear()">削除</b-button></td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
+       
+        <!-- <template>
+            <mdb-datatable :data="data" striped bordered fixed scrollY:maxHeight="200px" />
+        </template> -->
     </div>
 </template>
 
 <script>
+import { mdbDatatable } from 'mdbvue';
 const headers =['NO','ID','名前','Mail','Pass','Edit','Delete'];
 export default {
+    name: 'TableScrollPage',
+    components :{
+        mdbDatatable
+    },
     data() {
         return {
             input_name: '',
@@ -52,8 +61,148 @@ export default {
             items: [],
             input:[],
             edit_input:'',
-            headers:headers
-        };
+            headers:headers,
+        data: {
+          columns: [
+            {
+              label: 'Name',
+              field: 'name',
+              sort: 'asc'
+            },
+            {
+              label: 'Position',
+              field: 'position',
+              sort: 'asc'
+            },
+            {
+              label: 'Office',
+              field: 'office',
+              sort: 'asc'
+            },
+            {
+              label: 'Age',
+              field: 'age',
+              sort: 'asc'
+            },
+            {
+              label: 'Start date',
+              field: 'date',
+              sort: 'asc'
+            },
+            {
+              label: 'Salary',
+              field: 'salary',
+              sort: 'asc'
+            }
+          ],
+          rows: [
+            {
+              name: 'Tiger Nixon',
+              position: 'System Architect',
+              office: 'Edinburgh',
+              age: '61',
+              date: '2011/04/25',
+              salary: '$320'
+            },
+            {
+              name: 'Garrett Winters',
+              position: 'Accountant',
+              office: 'Tokyo',
+              age: '63',
+              date: '2011/07/25',
+              salary: '$170'
+            },
+            {
+              name: 'Ashton Cox',
+              position: 'Junior Technical Author',
+              office: 'San Francisco',
+              age: '66',
+              date: '2009/01/12',
+              salary: '$86'
+            },
+            {
+              name: 'Cedric Kelly',
+              position: 'Senior Javascript Developer',
+              office: 'Edinburgh',
+              age: '22',
+              date: '2012/03/29',
+              salary: '$433'
+            },
+            {
+              name: 'Airi Satou',
+              position: 'Accountant',
+              office: 'Tokyo',
+              age: '33',
+              date: '2008/11/28',
+              salary: '$162'
+            },
+            {
+              name: 'Brielle Williamson',
+              position: 'Integration Specialist',
+              office: 'New York',
+              age: '61',
+              date: '2012/12/02',
+              salary: '$372'
+            },
+            {
+              name: 'Herrod Chandler',
+              position: 'Sales Assistant',
+              office: 'San Francisco',
+              age: '59',
+              date: '2012/08/06',
+              salary: '$137'
+            },
+            {
+              name: 'Rhona Davidson',
+              position: 'Integration Specialist',
+              office: 'Tokyo',
+              age: '55',
+              date: '2010/10/14',
+              salary: '$327'
+            },
+            {
+              name: 'Colleen Hurst',
+              position: 'Javascript Developer',
+              office: 'San Francisco',
+              age: '39',
+              date: '2009/09/15',
+              salary: '$205'
+            },
+            {
+              name: 'Colleen Hurst',
+              position: 'Javascript Developer',
+              office: 'San Francisco',
+              age: '39',
+              date: '2009/09/15',
+              salary: '$205'
+            },
+            {
+              name: 'Colleen Hurst',
+              position: 'Javascript Developer',
+              office: 'San Francisco',
+              age: '39',
+              date: '2009/09/15',
+              salary: '$205'
+            },
+            {
+              name: 'Colleen Hurst',
+              position: 'Javascript Developer',
+              office: 'San Francisco',
+              age: '39',
+              date: '2009/09/15',
+              salary: '$205'
+            },
+            {
+              name: 'Colleen Hurst',
+              position: 'Javascript Developer',
+              office: 'San Francisco',
+              age: '39',
+              date: '2009/09/15',
+              salary: '$205'
+            }
+
+          ]
+        }};
     },
     async asyncData({ $axios }) {
         const items = await $axios.$get("http://localhost:5000");
@@ -61,8 +210,8 @@ export default {
         return { items };
     },
     methods: {
-        //「登録」ボタンのクリックイベント処理
-        onAlertEntry() {
+    //「登録」ボタンのクリックイベント処理
+    onAlertEntry() {
             this.input.push(this.input_name);
             this.input.push(this.input_email);
             this.input.push(this.input_password);
@@ -76,14 +225,14 @@ export default {
                 console.log('NO!');
             }
         },
-        //DBにデータを登録する
-        async entry() {
-            const items = await this.$axios.$post('http://localhost:5000/', 
-            {
-                 name: this.input_name,
-                 email: this.input_email,
-                 pass:this.input_password
-            });
+    //DBにデータを登録する
+    async entry() {
+        const items = await this.$axios.$post('http://localhost:5000/', 
+        {
+            name: this.input_name,
+            email: this.input_email,
+            pass:this.input_password
+        });
             this.clear();
             location.reload();
         },
@@ -116,6 +265,7 @@ export default {
 </script>
 
 <style>
+
 form{
     background-color:aqua;
     text-align: center;
@@ -136,6 +286,4 @@ td {
   padding: 5px;
   border: solid 1px #ccc;
 }
-
-
 </style>
