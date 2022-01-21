@@ -1,16 +1,17 @@
 <template>
   <div id="app">
   <vue-good-table 
-  :columns="columns" 
-  :rows="rows" 
-  :search-options="{
-    enabled: true,
-    trigger: 'enter',
-    skipDiacritics: true,
-    placeholder: 'Search this table',
-    }"
-    @on-cell-click="onRowClick()"
-  />
+  @on-selected-rows-change="selectionChanged"
+  :columns="columns"
+  :rows="rows"
+  :select-options="{ enabled: true }"
+  :search-options="{ enabled: true }"
+  styleClass="vgt-table bordered"
+  >
+  <div slot="selected-row-actions">
+    <button>Action</button>
+  </div>
+  </vue-good-table>
 </div>
 </template>
 
@@ -35,9 +36,8 @@ export default {
       　field: 'name',
       },
       {
-        label: 'Age',
-        field: 'age',
-        type: 'number',
+        label: 'Email',
+        field: 'email',
       },
       // {
       //   label: 'Created On',

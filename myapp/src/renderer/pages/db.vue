@@ -1,280 +1,223 @@
 <template>
-    <div>
-        <!-- 入力欄 -->
-        <form class="container">
-            <h5>USER情報の登録</h5>
-            <label for="">Name</label><br>
-            <input id="input_name" v-model="input_name" type="text"/><br>
-            <label for="">Mail</label><br>
-            <input id="inp_email" v-model="input_email" type="email"/><br>
-            <label for="">Pass Word</label><br>
-            <input id="input-password" v-model="input_password" type="password"/><br>
-            <!-- {{this.input}} -->
-            <div style="padding-top:5px;">
-                <b-button variant="danger" @click="clear()">Clear</b-button>
-            </div>
-        </form>
-            <div style="margin:10px;text-align:center;">
-                <b-button variant="primary" @click="onAlertEntry()" title="あああ">登録</b-button>
-            </div>
-        <!-- DB登録内容を表示 -->
-        <!-- <table>
-            <thead>
-                <tr>
-                    <th v-for="(header,index) in headers" v-bind:key="index" class="fixed01">
-                        {{ header }}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item,index) in items" v-bind:key="item.id">
-                    <th>{{index +1}}</th>
-                    <td>{{item.id}}</td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.email}}</td>
-                    <td>{{item.pass}}</td>
-                    <td><b-button variant="success">編集</b-button></td>
-                    <td><b-button variant="danger" @click="clear()">削除</b-button></td>
-                </tr>
-            </tbody>
-        </table> -->
-       
-        <!-- <template>
-            <mdb-datatable :data="data" striped bordered fixed scrollY:maxHeight="200px" />
-        </template> -->
+  <div>
+    <!-- 入力欄 -->
+    <form class="container">
+      <h5>USER情報の登録</h5>
+      <label for="">Name</label><br />
+      <input id="input_name" v-model="input_name" type="text" /><br />
+      <label for="">Mail</label><br />
+      <input id="inp_email" v-model="input_email" type="email" /><br />
+      <label for="">Pass Word</label><br />
+      <input id="input-password" v-model="input_password" type="password"/><br />
+      <!-- {{this.input}} -->
+      <div style="padding-top:5px;">
+        <b-button variant="danger" @click="clear()">Clear</b-button>
+      </div>
+    </form>
+    <div style="margin:10px;text-align:center;">
+      <b-button variant="primary" @click="onAlertEntry()" title="あああ">登録</b-button>
     </div>
+    <!-- DB登録内容を表示 -->
+    <!-- <table>
+      <thead>
+        <tr>
+          <th v-for="(header, index) in headers" v-bind:key="index" class="fixed01">
+            {{ header }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in items" v-bind:key="item.id">
+          <th>{{ index + 1 }}</th>
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.pass }}</td>
+          <td><b-button variant="success">編集</b-button></td>
+          <td>
+            <b-button variant="danger" @click="onAlterDelete(item)">削除</b-button>
+          </td>
+        </tr>
+      </tbody>
+    </table> -->
+    <vue-good-table
+      mode="remote"
+      @on-page-change="onPageChange"
+      :totalRows="totalRecords"
+      :isLoading.sync="isLoading"
+      :pagination-options="{
+        enabled: true
+      }"
+      :rows="rows"
+      :columns="columns"
+      :select-options="{ enabled: true }"
+      :search-options="{ enabled: true }"
+      styleClass="vgt-table bordered"
+    >
+      <div slot="selected-row-actions">
+        <button>Action</button>
+      </div>
+    </vue-good-table>
+  </div>
 </template>
 
 <script>
-import { mdbDatatable } from 'mdbvue';
-const headers =['NO','ID','名前','Mail','Pass','Edit','Delete'];
+import { VueGoodTable } from "vue-good-table";
+const headers = ["NO", "ID", "名前", "Mail", "Pass", "Edit", "Delete"];
 export default {
-    name: 'TableScrollPage',
-    components :{
-        mdbDatatable
+  name: "TableScrollPage",
+  components: {
+    VueGoodTable
+  },
+  data() {
+    return {
+      isLoading: false,
+      columns: [
+         {
+        label: 'id',
+        field: 'id',
+        type: 'number',
+      },
+       {
+        label: 'Name',
+        field: 'name',
+      },
+      {
+        label: 'Email',
+        field: 'email',
+      },
+      {
+        label: 'PassWord',
+        field: 'password',
+      },
+      ],
+      rows: [],
+      totalRecords:0,
+      serverParams: {
+      columnFilters: {
+      },
+      sort: [
+        {
+          field: '',
+          type: ''
+        }
+      ],
+      page: 1, 
+      perPage: 10
     },
-    data() {
-        return {
-            input_name: '',
-            input_email:'',
-            input_password:'',
-            items: [],
-            input:[],
-            edit_input:'',
-            headers:headers,
-        data: {
-          columns: [
-            {
-              label: 'Name',
-              field: 'name',
-              sort: 'asc'
-            },
-            {
-              label: 'Position',
-              field: 'position',
-              sort: 'asc'
-            },
-            {
-              label: 'Office',
-              field: 'office',
-              sort: 'asc'
-            },
-            {
-              label: 'Age',
-              field: 'age',
-              sort: 'asc'
-            },
-            {
-              label: 'Start date',
-              field: 'date',
-              sort: 'asc'
-            },
-            {
-              label: 'Salary',
-              field: 'salary',
-              sort: 'asc'
-            }
-          ],
-          rows: [
-            {
-              name: 'Tiger Nixon',
-              position: 'System Architect',
-              office: 'Edinburgh',
-              age: '61',
-              date: '2011/04/25',
-              salary: '$320'
-            },
-            {
-              name: 'Garrett Winters',
-              position: 'Accountant',
-              office: 'Tokyo',
-              age: '63',
-              date: '2011/07/25',
-              salary: '$170'
-            },
-            {
-              name: 'Ashton Cox',
-              position: 'Junior Technical Author',
-              office: 'San Francisco',
-              age: '66',
-              date: '2009/01/12',
-              salary: '$86'
-            },
-            {
-              name: 'Cedric Kelly',
-              position: 'Senior Javascript Developer',
-              office: 'Edinburgh',
-              age: '22',
-              date: '2012/03/29',
-              salary: '$433'
-            },
-            {
-              name: 'Airi Satou',
-              position: 'Accountant',
-              office: 'Tokyo',
-              age: '33',
-              date: '2008/11/28',
-              salary: '$162'
-            },
-            {
-              name: 'Brielle Williamson',
-              position: 'Integration Specialist',
-              office: 'New York',
-              age: '61',
-              date: '2012/12/02',
-              salary: '$372'
-            },
-            {
-              name: 'Herrod Chandler',
-              position: 'Sales Assistant',
-              office: 'San Francisco',
-              age: '59',
-              date: '2012/08/06',
-              salary: '$137'
-            },
-            {
-              name: 'Rhona Davidson',
-              position: 'Integration Specialist',
-              office: 'Tokyo',
-              age: '55',
-              date: '2010/10/14',
-              salary: '$327'
-            },
-            {
-              name: 'Colleen Hurst',
-              position: 'Javascript Developer',
-              office: 'San Francisco',
-              age: '39',
-              date: '2009/09/15',
-              salary: '$205'
-            },
-            {
-              name: 'Colleen Hurst',
-              position: 'Javascript Developer',
-              office: 'San Francisco',
-              age: '39',
-              date: '2009/09/15',
-              salary: '$205'
-            },
-            {
-              name: 'Colleen Hurst',
-              position: 'Javascript Developer',
-              office: 'San Francisco',
-              age: '39',
-              date: '2009/09/15',
-              salary: '$205'
-            },
-            {
-              name: 'Colleen Hurst',
-              position: 'Javascript Developer',
-              office: 'San Francisco',
-              age: '39',
-              date: '2009/09/15',
-              salary: '$205'
-            },
-            {
-              name: 'Colleen Hurst',
-              position: 'Javascript Developer',
-              office: 'San Francisco',
-              age: '39',
-              date: '2009/09/15',
-              salary: '$205'
-            }
+      input_name: "",
+      input_email: "",
+      input_password: "",
+      items: [],
+      input: [],
+      edit_input: "",
+      headers
+    };
+  },
+  async asyncData({ $axios }) {
+    const items = await $axios.$get("http://localhost:5000");
+    const rows = await $axios.$get("http://localhost:5000");
+    console.log(rows);
+    return { items ,rows };
+    
+  },
+  methods: {
+    updateParams(newProps) {
+      this.serverParams = Object.assign({}, this.serverParams, newProps);
+    },
+    
+    onPageChange(params) {
+      this.updateParams({page: params.currentPage});
+      this.loadItems();
+    },
 
-          ]
-        }};
+    // onPerPageChange(params) {
+    //   this.updateParams({perPage: params.currentPerPage});
+    //   this.loadItems();
+    // },
+
+    // onSortChange(params) {
+    //   this.updateParams({
+    //     sort: [{
+    //       type: params.sortType,
+    //       field: this.columns[params.columnIndex].field,
+    //     }],
+    //   });
+    //   this.loadItems();
+    // },
+    
+    // onColumnFilter(params) {
+    //   this.updateParams(params);
+    //   this.loadItems();
+    // },
+
+    // load items is what brings back the rows from server
+    loadItems() {
+      // this.totalRecords = response.totalRecords;
+      // this.rows = response.rows;
     },
-    async asyncData({ $axios }) {
-        const items = await $axios.$get("http://localhost:5000");
-        console.log(items);
-        return { items };
-    },
-    methods: {
+
     //「登録」ボタンのクリックイベント処理
     onAlertEntry() {
-            this.input.push(this.input_name);
-            this.input.push(this.input_email);
-            this.input.push(this.input_password);
-            const result = window.confirm(this.input_name + 'を登録しますか？');
-            if (result) {
-                alert('登録が完了しました');
-                this.entry();
-            }
-            else {
-                alert('登録を中止しました');
-                console.log('NO!');
-            }
-        },
+      this.input.push(this.input_name);
+      this.input.push(this.input_email);
+      this.input.push(this.input_password);
+      const result = window.confirm(this.input_name + "を登録しますか？");
+      if (result) {
+        alert("登録が完了しました");
+        this.entry();
+      } else {
+        alert("登録を中止しました");
+        console.log("NO!");
+      }
+    },
     //DBにデータを登録する
     async entry() {
-        const items = await this.$axios.$post('http://localhost:5000/', 
-        {
-            name: this.input_name,
-            email: this.input_email,
-            pass:this.input_password
-        });
-            this.clear();
-            location.reload();
-        },
-        //DBからデータ(単体)を削除する
-        async deleteData(id) {
-            let uri = "http://localhost:5000/delete/" + id;
-            await this.$axios.$post(uri);
-            location.reload();
-        },
-        //「削除」ボタンのクリックイベント処理
-        onAlterDelete(item) {
-            const result = window.confirm(item.name + 'を削除します');
-            if (result) {
-                alert('削除が完了しました');
-                this.deleteData(item.id);
-            }
-            else {
-               alert('削除を中止しました');
-               console.log('NO!');
-            }
-        },
-        // 入力欄をクリアする
-        clear() {
-            this.input_name = '';
-            this.input_email = '';
-            this.input_password = '';
-        },
+      const items = await this.$axios.$post("http://localhost:5000/", {
+        name: this.input_name,
+        email: this.input_email,
+        pass: this.input_password
+      });
+      this.clear();
+      location.reload();
+    },
+    //DBからデータ(単体)を削除する
+    async deleteData(id) {
+      let uri = "http://localhost:5000/delete/" + id;
+      await this.$axios.$post(uri);
+      location.reload();
+    },
+    //「削除」ボタンのクリックイベント処理
+    onAlterDelete(item) {
+      const result = window.confirm(item.name + "を削除します");
+      if (result) {
+        alert("削除が完了しました");
+        this.deleteData(item.id);
+      } else {
+        alert("削除を中止しました");
+        console.log("NO!");
+      }
+    },
+    // 入力欄をクリアする
+    clear() {
+      this.input_name = "";
+      this.input_email = "";
+      this.input_password = "";
     }
+  }
 };
 </script>
 
 <style>
-
-form{
-    background-color:aqua;
-    text-align: center;
-    padding: 10px;
-    margin-bottom:10px;
+form {
+  background-color: aqua;
+  text-align: center;
+  padding: 10px;
+  /* margin-bottom:10px; */
 }
 table {
   border: solid 1px #ccc;
-  border-collapse:collapse;
+  border-collapse: collapse;
   margin: auto;
 }
 th {
