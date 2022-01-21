@@ -18,7 +18,7 @@
       <b-button variant="primary" @click="onAlertEntry()" title="あああ">登録</b-button>
     </div>
     <!-- DB登録内容を表示 -->
-    <!-- <table>
+    <table>
       <thead>
         <tr>
           <th v-for="(header, index) in headers" v-bind:key="index" class="fixed01">
@@ -39,72 +39,19 @@
           </td>
         </tr>
       </tbody>
-    </table> -->
-    <vue-good-table
-      mode="remote"
-      @on-page-change="onPageChange"
-      :totalRows="totalRecords"
-      :isLoading.sync="isLoading"
-      :pagination-options="{
-        enabled: true
-      }"
-      :rows="rows"
-      :columns="columns"
-      :select-options="{ enabled: true }"
-      :search-options="{ enabled: true }"
-      styleClass="vgt-table bordered"
-    >
-      <div slot="selected-row-actions">
-        <button>Action</button>
-      </div>
-    </vue-good-table>
+    </table>
   </div>
 </template>
 
 <script>
-import { VueGoodTable } from "vue-good-table";
 const headers = ["NO", "ID", "名前", "Mail", "Pass", "Edit", "Delete"];
 export default {
-  name: "TableScrollPage",
-  components: {
-    VueGoodTable
-  },
+  name: "Usuarios",
+  components: {},
   data() {
     return {
-      isLoading: false,
-      columns: [
-         {
-        label: 'id',
-        field: 'id',
-        type: 'number',
-      },
-       {
-        label: 'Name',
-        field: 'name',
-      },
-      {
-        label: 'Email',
-        field: 'email',
-      },
-      {
-        label: 'PassWord',
-        field: 'password',
-      },
-      ],
-      rows: [],
-      totalRecords:0,
-      serverParams: {
-      columnFilters: {
-      },
-      sort: [
-        {
-          field: '',
-          type: ''
-        }
-      ],
-      page: 1, 
-      perPage: 10
-    },
+      user: this.user,
+      errors: [],
       input_name: "",
       input_email: "",
       input_password: "",
@@ -116,47 +63,9 @@ export default {
   },
   async asyncData({ $axios }) {
     const items = await $axios.$get("http://localhost:5000");
-    const rows = await $axios.$get("http://localhost:5000");
-    console.log(rows);
-    return { items ,rows };
-    
+    return { items};
   },
   methods: {
-    updateParams(newProps) {
-      this.serverParams = Object.assign({}, this.serverParams, newProps);
-    },
-    
-    onPageChange(params) {
-      this.updateParams({page: params.currentPage});
-      this.loadItems();
-    },
-
-    // onPerPageChange(params) {
-    //   this.updateParams({perPage: params.currentPerPage});
-    //   this.loadItems();
-    // },
-
-    // onSortChange(params) {
-    //   this.updateParams({
-    //     sort: [{
-    //       type: params.sortType,
-    //       field: this.columns[params.columnIndex].field,
-    //     }],
-    //   });
-    //   this.loadItems();
-    // },
-    
-    // onColumnFilter(params) {
-    //   this.updateParams(params);
-    //   this.loadItems();
-    // },
-
-    // load items is what brings back the rows from server
-    loadItems() {
-      // this.totalRecords = response.totalRecords;
-      // this.rows = response.rows;
-    },
-
     //「登録」ボタンのクリックイベント処理
     onAlertEntry() {
       this.input.push(this.input_name);

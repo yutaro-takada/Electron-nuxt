@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
     if (error) {
         return res.status(400).json({error:error.message})
     }
-    //console.log(result);
+    //console.log('Fetch');
     return res.send(result);
   });
 });

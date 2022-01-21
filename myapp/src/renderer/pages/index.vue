@@ -6,6 +6,7 @@
   :rows="rows"
   :select-options="{ enabled: true }"
   :search-options="{ enabled: true }"
+  
   styleClass="vgt-table bordered"
   >
   <div slot="selected-row-actions">
