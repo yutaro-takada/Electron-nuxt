@@ -4,7 +4,7 @@
       <div><nuxt-link to="/db" exact> DB page </nuxt-link></div>
       <div><nuxt-link to="/book" exact> Book page </nuxt-link></div>
       <div><nuxt-link to="/login" exact> Login </nuxt-link></div>
-      <div><nuxt-link to="/" exact> System info </nuxt-link></div>
+      <div><nuxt-link to="/" exact> TEST PAGE </nuxt-link></div>
   </nav>
   <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
   <label for="openSidebarMenu" class="sidebarIconToggle">

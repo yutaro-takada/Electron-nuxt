@@ -7,12 +7,11 @@ module.exports = {
   },
   loading: false,
   // css: ["element-ui/lib/theme-chalk/index.css"],
-  // plugins: ["@/plugins/element-ui"],
+  plugins: [
+    
+  ],
   buildModules: [
     // '@nuxtjs/router',
   ],
-  modules: [
-    "bootstrap-vue/nuxt",
-    '@nuxtjs/axios',
-  ],
+  modules: ["bootstrap-vue/nuxt", "@nuxtjs/axios"],
 };
