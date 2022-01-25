@@ -234,6 +234,7 @@ export default {
       this.search_id = "";
       location.reload();
     },
+    //モーダル(閉)の際、入力内容をクリアする(誤作動防止)
     modalClear(){
       this.edit_id ='',
       this.edit_name='',

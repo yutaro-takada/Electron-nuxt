@@ -21,7 +21,7 @@ app.get("/", function (req, res) {
     if (error) {
       return res.status(400).json({ error: error.message });
     }
-    console.log("GET");
+    // console.log("GET");
     return res.send(result);
   });
 });
