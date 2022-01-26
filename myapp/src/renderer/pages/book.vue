@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>BOOK ページ</h1>
-    <p>LocalStrageにURL情報を記録する</p>
+    <p>LocalStrageにURL情報を記録するう</p>
     <div class="e-nuxt-links">
       <input id="input-url" v-model="url" type="text" />
       <b-button variant="primary" @click="saveBookmark(url)">登録する</b-button>
