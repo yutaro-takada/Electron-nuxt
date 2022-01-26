@@ -22,10 +22,7 @@
     <!-- 検索欄 -->
     <form class="container">
       <h5>検索(ID)</h5>
-      <input
-        id="search_id"
-        style="width: 80px; margin: 5px"
-        v-model="search_id"
+      <input id="search_id" style="width: 80px; margin: 5px" v-model="search_id"
         type="text"
         placeholder="ID入力欄"
         @blur="blur(search_id)"
@@ -66,11 +63,8 @@
     <table class="st-tbl1">
       <thead>
         <tr class="red">
-          <th
-            v-for="(header, index) in headers"
-            v-bind:key="index"
-            style="text-align: center"
-          >{{ header }}</th>
+          <th v-for="(header, index) in headers" v-bind:key="index" style="text-align: center">
+            {{ header }}</th>
         </tr>
       </thead>
       <tbody>
