@@ -1,10 +1,10 @@
 <template>
+  <!-- メニューヘッダー部分 -->
   <header class="main-header">
   <nav> 
       <div><nuxt-link to="/db" exact> DB page </nuxt-link></div>
       <div><nuxt-link to="/book" exact> Book page </nuxt-link></div>
-      <div><nuxt-link to="/login" exact> Login </nuxt-link></div>
-      <div><nuxt-link to="/" exact> TEST PAGE </nuxt-link></div>
+      <!-- <div><nuxt-link to="/login" exact> Login </nuxt-link></div> -->
   </nav>
   <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
   <label for="openSidebarMenu" class="sidebarIconToggle">
@@ -12,7 +12,7 @@
     <div class="spinner horizontal"></div>
     <div class="spinner diagonal part-2"></div>
   </label>
-  
+  <!-- サイドメニュー部分 -->
   <div id="sidebarMenu">
     <ul class="sidebarMenuInner">
       <li>Jelena Jovanovic <span>Web Developer</span></li>
@@ -20,10 +20,8 @@
       <li><nuxt-link to="/db" exact> DB page </nuxt-link></li>
       <li><nuxt-link to="/book" exact> Book page </nuxt-link></li>
       <li><nuxt-link to="/login" exact> Login </nuxt-link></li>
-      <!-- <li><nuxt-link to="/" exact> System info </nuxt-link></li> -->
     </ul>
   </div>
-  
   </header>
 </template>
 

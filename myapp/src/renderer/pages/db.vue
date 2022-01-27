@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- 入力欄 -->
+    <!-- 登録入力欄 -->
     <form class="container">
       <h5>USER情報の登録</h5>
       <label for>Name</label>
@@ -16,30 +16,33 @@
       <input id="input-password" v-model="input_password" type="password" />
       <br />
       <div style="margin: 10px; text-align: center">
-        <b-button variant="primary" @click="onAlertEntry()" title="あああ">登録</b-button>
+        <b-button variant="primary" @click="onAlertEntry()" title="あああ"
+          >登録</b-button
+        >
       </div>
     </form>
     <!-- 検索欄 -->
     <form class="container">
       <h5>検索(ID)</h5>
-      <input id="search_id" style="width: 80px; margin: 5px" v-model="search_id"
+      <input
+        id="search_id"
+        style="width: 80px; margin: 5px"
+        v-model="search_id"
         type="text"
         placeholder="ID入力欄"
         @blur="blur(search_id)"
       />
       <br />
-      <!-- <input id="search_name" style="width: 80px;" v-model="search_name" type="text" placeholder="NAME" @blur="blur(search_name)"><br> -->
       <div style="margin: 10px; text-align: center">
         <b-button variant="success" @click="searchButtonClick()">検索</b-button>
         <b-button variant="secondary" @click="showModal()">Showtest</b-button>
-        
       </div>
     </form>
     <!-- Clrearボタン -->
     <div style="margin: 10px; text-align: center">
       <b-button variant="danger" @click="clear()">Clear</b-button>
     </div>
-    <!-- <div v-if="show" id="modal3" class="overlays"> -->
+    <!-- モーダル表示 -->
     <div v-if="show">
       <a class="cancel" href="#"></a>
       <div class="modals">
@@ -52,19 +55,25 @@
           <br />
           <input type="text" v-model="edit_pass" />
           <br />
-          <b-button variant="secondary" @click="onAlertEdit()">更新登録</b-button>
+          <b-button variant="secondary" @click="onAlertEdit()"
+            >更新登録</b-button
+          >
           <b-button variant="secondary" @click="hideModal()">閉じる</b-button>
-          <p class="close">
-          </p>
+          <p class="close"></p>
         </div>
       </div>
     </div>
     <!-- DB登録内容を表示 -->
-    <table class="st-tbl1">
+    <table class="st-tbl1" v-if="show_table">
       <thead>
         <tr class="red">
-          <th v-for="(header, index) in headers" v-bind:key="index" style="text-align: center">
-            {{ header }}</th>
+          <th
+            v-for="(header, index) in headers"
+            v-bind:key="index"
+            style="text-align: center"
+          >
+            {{ header }}
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -75,12 +84,12 @@
           <td>{{ item.email }}</td>
           <td>{{ item.pass }}</td>
           <td style="text-align: center; width: 80px">
-            <!-- <b-button variant="success" @click="edit(item.id)">編集</b-button> -->
             <a class="button" @click="openModal(item)">編集</a>
-            <!-- <a href="#modal3" class="button">編集</a> -->
           </td>
           <td style="text-align: center; width: 80px">
-            <b-button variant="danger" @click="onAlterDelete(item)">削除</b-button>
+            <b-button variant="danger" @click="onAlterDelete(item)"
+              >削除</b-button
+            >
           </td>
         </tr>
       </tbody>
@@ -93,40 +102,54 @@ export default {
   components: {},
   data() {
     return {
+      /** 表示/非表示 */
       show: false,
-      errors: [],
+      show_table: false,
+      /** データ登録 */
       input_name: "",
-      edit_name: "",
       input_email: "",
       input_password: "",
+      /** 取得データ */
       items: [],
       input: [],
+      /** 検索 */
       search: [],
+      search_id: "",
+      search_name: "",
+      /** 登録内容の更新 */
       edit_id: "",
       edit_name: "",
       edit_email: "",
       edit_pass: "",
       edit_input: [],
-      search_id: "",
-      search_name: "",
-      headers: ["NO", "ID", "名前", "Mail", "Pass", "Edit", "Delete"]
+      /** テーブルヘッダー */
+      headers: ["NO", "ID", "名前", "Mail", "Pass", "Edit", "Delete"],
     };
   },
-  // DBからデータを取得する
+  /**
+   * 【要修正】
+   * DBからデータを取得する(LIMIT100件)
+   * アプリ起動時に動作
+   * */
   async asyncData({ $axios }) {
     const items = await $axios.$get("http://localhost:5000");
     console.log(items);
     return { items };
   },
   methods: {
+    /** モーダル：表示 */
     showModal() {
       this.show = true;
     },
+    /** モーダル：非表示 */
     hideModal() {
       this.show = false;
       this.modalClear();
     },
-    //モーダルを表示した際のデータ連携
+    /**
+     * モーダルに表示するデータの連携
+     * @param {object} item 選択されたユーザーの情報
+     */
     openModal(item) {
       this.show = true;
       this.edit_id = item.id;
@@ -134,7 +157,11 @@ export default {
       this.edit_email = item.email;
       this.edit_pass = item.pass;
     },
-    //「編集」ボタンのクリックイベント
+    /**
+     * 「編集」ボタンのクリックイベント
+     * false:更新を中止する
+     * true:モーダルに入力した内容で更新する
+     * */
     onAlertEdit() {
       const result = window.confirm(this.edit_id + "内容を更新しますか？");
       this.hideModal();
@@ -146,40 +173,48 @@ export default {
         location.reload();
       }
     },
-    //データを編集する
+    /**
+     * データを編集する
+     * @param {int} id 更新対象の〇〇ID
+     */
     async edit(id) {
       let uri = "http://localhost:5000/edit/" + id;
       const items = await this.$axios.$post(uri, {
         name: this.edit_name,
         mail: this.edit_email,
-        pass: this.edit_pass
+        pass: this.edit_pass,
       });
     },
-    //(仮)フォーカスが外れたら配列に格納
-    blur(obj) {
-      this.search.push(obj);
-    },
-    //検索ボタンの検索イベント
+    /**
+     * 「検索」ボタンのクリックイベント
+     * 検索IDに紐づくユーザーの情報を検索する
+     * 検索IDが[空]の場合：全件検索(LIMIT100件)
+     */
     searchButtonClick() {
-      //(無条件)全件を表示する
       if (this.search_id == "") {
-        this.show = true;
+        this.show_table = true;
       } else {
         this.selectId();
-        this.show = true;
+        this.show_table = true;
       }
     },
-    //(ID専用)検索条件に一致するデータを取得する
+    /**
+     * (ID専用)
+     * 検索条件に一致するデータを取得する
+     */
     async selectId() {
       const items = await this.$axios.$post("http://localhost:5000/select_id", {
         id: this.search_id,
-        name: this.search_name
       });
       console.log(items);
       this.items = items;
       return { items };
     },
-    //「登録」ボタンのクリックイベント処理
+    /**
+     * 「登録」ボタンのクリックイベント処理
+     * true:入力された内容を登録する
+     * false:登録を中止する
+     */
     onAlertEntry() {
       this.input.push(this.input_name);
       this.input.push(this.input_email);
@@ -193,22 +228,33 @@ export default {
         console.log("登録中止");
       }
     },
-    //データを登録する
+    /**
+     * データを登録する
+     * 登録完了後に入力欄をクリア&再描画する
+     */
     async entry() {
       const items = await this.$axios.$post("http://localhost:5000/", {
         name: this.input_name,
         email: this.input_email,
-        pass: this.input_password
+        pass: this.input_password,
       });
       this.clear();
       location.reload();
     },
-    //データ(単体)を削除する
+    /**
+     * データ(単体)を削除する
+     * @param {int} id 削除対象の〇〇ID
+     */
     async deleteData(id) {
       let uri = "http://localhost:5000/delete/" + id;
       await this.$axios.$post(uri);
     },
-    //「削除」ボタンのクリックイベント処理
+    /**
+     * 「削除」ボタンのクリックイベント処理
+     * @param {object} item 削除対象の◯◯データ
+     * true:削除を実行する
+     * false:削除を中止する
+     */
     onAlterDelete(item) {
       const result = window.confirm(item.name + "を削除します");
       if (result) {
@@ -220,7 +266,9 @@ export default {
         console.log("NO!");
       }
     },
-    // 入力欄・検索欄をクリアする
+    /**
+     * 入力欄・検索欄をクリアする
+     */
     clear() {
       this.input_name = "";
       this.input_email = "";
@@ -228,14 +276,17 @@ export default {
       this.search_id = "";
       location.reload();
     },
-    //モーダル(閉)の際、入力内容をクリアする(誤作動防止)
-    modalClear(){
-      this.edit_id ='',
-      this.edit_name='',
-      this.edit_email='',
-      this.edit_pass=''
-    }
-  }
+    /**
+     * (誤作動防止)
+     * モーダル(閉)の際、モーダルの入力内容をクリアする
+     */
+    modalClear() {
+      (this.edit_id = ""),
+        (this.edit_name = ""),
+        (this.edit_email = ""),
+        (this.edit_pass = "");
+    },
+  },
 };
 </script>
 

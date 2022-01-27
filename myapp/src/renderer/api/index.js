@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-//全件検索(SELECT ALL)
+/** 全件検索(SELECT ALL) */
 app.get("/", function (req, res) {
   res.set({ "Access-Control-Allow-Origin": "*" });
   const sql = "select * from users order by id LIMIT 100;";
@@ -21,12 +21,11 @@ app.get("/", function (req, res) {
     if (error) {
       return res.status(400).json({ error: error.message });
     }
-    // console.log("GET");
     return res.send(result);
   });
 });
 
-//IDによる検索(SELECT WHERE)
+/** IDによる検索(SELECT WHERE) */
 app.post("/select_id", (req, res) => {
   const val = req.body.id;
   console.log("SELECT ID");
@@ -40,7 +39,7 @@ app.post("/select_id", (req, res) => {
   });
 });
 
-//編集による修正(UPDATE)
+/** 編集による修正(UPDATE) */
 app.post("/edit/:id", (req, res) => {
   console.log(req.params.id);
   const val = {
@@ -61,7 +60,7 @@ app.post("/edit/:id", (req, res) => {
   );
 });
 
-//データ登録(INSERT)
+/** データ登録(INSERT) */
 app.post("/", (req, res) => {
   const sql = "INSERT INTO users SET ?";
   const val = {
@@ -79,7 +78,7 @@ app.post("/", (req, res) => {
   });
 });
 
-//データ削除(DELETE)
+/** データ削除(DELETE) */
 app.post("/delete/:id", (req, res) => {
   console.log(req.params.id);
   const sql = "DELETE FROM users WHERE id = ?";
