@@ -46,9 +46,10 @@
     <div v-if="show">
       <a class="cancel" href="#"></a>
       <div class="modals">
-        <h2>モーダルウィンドウ3</h2>
+        <h2>モーダルウィンドウ</h2>
         <div class="cont">
           {{ edit_id }}
+          <br />
           <input type="text" v-model="edit_name" />
           <br />
           <input type="text" v-model="edit_email" />
@@ -144,7 +145,6 @@ export default {
     /** モーダル：非表示 */
     hideModal() {
       this.show = false;
-      this.modalClear();
     },
     /**
      * モーダルに表示するデータの連携
@@ -158,13 +158,22 @@ export default {
       this.edit_pass = item.pass;
     },
     /**
+     * 誤作動防止
+     * モーダル(閉)の際、モーダルの入力内容をクリアする
+     */
+    modalClear() {
+      (this.edit_id = ""),
+        (this.edit_name = ""),
+        (this.edit_email = ""),
+        (this.edit_pass = "");
+    },
+    /**
      * 「編集」ボタンのクリックイベント
      * false:更新を中止する
      * true:モーダルに入力した内容で更新する
      * */
     onAlertEdit() {
       const result = window.confirm(this.edit_id + "内容を更新しますか？");
-      this.hideModal();
       if (!result) {
         alert("更新を中止しました");
       } else {
@@ -275,16 +284,6 @@ export default {
       this.input_password = "";
       this.search_id = "";
       location.reload();
-    },
-    /**
-     * (誤作動防止)
-     * モーダル(閉)の際、モーダルの入力内容をクリアする
-     */
-    modalClear() {
-      (this.edit_id = ""),
-        (this.edit_name = ""),
-        (this.edit_email = ""),
-        (this.edit_pass = "");
     },
   },
 };

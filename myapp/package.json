@@ -4,7 +4,7 @@
   "description": "An electron-nuxt project",
   "main": "./dist/main/index.js",
   "scripts": {
-    "dev": "node .electron-nuxt/dev.js",
+    "dev": "node .electron-nuxt/dev.js && nodemon api/index.js",
     "build": "node .electron-nuxt/build.js",
     "preinstall": "node .electron-nuxt/check-engines.js",
     "postinstall": "electron-builder install-app-deps "
@@ -42,6 +42,7 @@
     "electron-reload": "^2.0.0-alpha.1",
     "eslint": "^8.5.0",
     "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
     "materialize-css": "^1.0.0-rc.2",
     "mdbvue": "^6.7.3",
     "mysql": "^2.18.1",

@@ -1,17 +1,43 @@
-const express = require('express'); 
-const app = express(); 
-const bodyParser = require('body-parser');
-const mysql = require('mysql'); 
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const mysql = require("mysql");
 const port = 5000;
 const connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '0000',
-  database : 'testdb'
+  host: "localhost",
+  user: "root",
+  password: "0000",
+  database: "testdb",
 });
+const config = require("./config");
+const auth = require("./auth");
+const jwt = require("jsonwebtoken");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+
+/** 登録 */
+app.post("/register", (req, res) => {
+  const payload = {
+    username: req.body.username,
+    email: req.body.email,
+  };
+  const token = jwt.sign(payload, config.jwt.secret, config.jwt.options);
+  const body = {
+    username: req.body.username,
+    email: req.body.email,
+    token: token,
+  };
+  res.status(200).json(body);
+});
+
+/** ログイン認証 */
+app.get("/login", auth, (req, res) => {
+  console.log(res);
+  res.status(200).json({
+    msg: "認証成功",
+  });
+});
 
 /** 全件検索(SELECT ALL) */
 app.get("/", function (req, res) {
@@ -44,20 +70,19 @@ app.post("/edit/:id", (req, res) => {
   console.log(req.params.id);
   const val = {
     name: req.body.name,
-    email:req.body.mail,
-    pass:req.body.pass
-  } ;
+    email: req.body.mail,
+    pass: req.body.pass,
+  };
   const sql = "UPDATE users SET ? WHERE id = " + req.params.id;
-  connection.query(sql,val, function (err, result, fields) {
-      console.log(result);
-      if (err) {
-        console.log(err);
-        return res.status(400).json({ err: err.message });
-      }
-      console.log(result);
-      return res.send(result);
+  connection.query(sql, val, function (err, result, fields) {
+    console.log(result);
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ err: err.message });
     }
-  );
+    console.log(result);
+    return res.send(result);
+  });
 });
 
 /** データ登録(INSERT) */
@@ -92,5 +117,4 @@ app.post("/delete/:id", (req, res) => {
   });
 });
 
-app.listen(port, () =>
-  console.log(`Example app listening on port ${port}`));
+app.listen(port, () => console.log(`Example app listening on port ${port}`));
