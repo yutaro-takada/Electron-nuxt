@@ -2,7 +2,7 @@
   <div>
     <!-- 登録入力欄 -->
     <form class="container">
-      <h5>USER情報の登録</h5>
+      <h5>契約情報の登録</h5>
       <label for>Name</label>
       <br />
       <input id="input_name" v-model="input_name" type="text" />
@@ -133,7 +133,7 @@ export default {
    * アプリ起動時に動作
    * */
   async asyncData({ $axios }) {
-    const items = await $axios.$get("http://localhost:5000");
+    const items = await $axios.$get("http://localhost:5000/contract");
     console.log(items);
     return { items };
   },
@@ -168,11 +168,12 @@ export default {
         (this.edit_pass = "");
     },
     /**
-     * 「編集」ボタンのクリックイベント
+     * 「更新登録」ボタンのクリックイベント
      * false:更新を中止する
-     * true:モーダルに入力した内容で更新する
+     * true:モーダルで表示・入力した内容で更新する
      * */
     onAlertEdit() {
+      this.hideModal();
       const result = window.confirm(this.edit_id + "内容を更新しますか？");
       if (!result) {
         alert("更新を中止しました");
@@ -187,7 +188,7 @@ export default {
      * @param {int} id 更新対象の〇〇ID
      */
     async edit(id) {
-      let uri = "http://localhost:5000/edit/" + id;
+      let uri = "http://localhost:5000/contract/edit/" + id;
       const items = await this.$axios.$post(uri, {
         name: this.edit_name,
         mail: this.edit_email,
@@ -212,9 +213,12 @@ export default {
      * 検索条件に一致するデータを取得する
      */
     async selectId() {
-      const items = await this.$axios.$post("http://localhost:5000/select_id", {
-        id: this.search_id,
-      });
+      const items = await this.$axios.$post(
+        "http://localhost:5000/contract/select_id",
+        {
+          id: this.search_id,
+        }
+      );
       console.log(items);
       this.items = items;
       return { items };
@@ -242,7 +246,7 @@ export default {
      * 登録完了後に入力欄をクリア&再描画する
      */
     async entry() {
-      const items = await this.$axios.$post("http://localhost:5000/", {
+      const items = await this.$axios.$post("http://localhost:5000/contract", {
         name: this.input_name,
         email: this.input_email,
         pass: this.input_password,
@@ -255,7 +259,7 @@ export default {
      * @param {int} id 削除対象の〇〇ID
      */
     async deleteData(id) {
-      let uri = "http://localhost:5000/delete/" + id;
+      let uri = "http://localhost:5000/contract/delete/" + id;
       await this.$axios.$post(uri);
     },
     /**

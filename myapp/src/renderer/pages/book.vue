@@ -1,85 +1,75 @@
 <template>
   <div>
     <h1>BOOK ページ</h1>
-    <p>LocalStrageにURL情報を記録するう</p>
+    <p>LocalStrageにURL情報を記録する</p>
     <div class="e-nuxt-links">
       <input id="input-url" v-model="url" type="text" />
       <b-button variant="primary" @click="saveBookmark(url)">登録する</b-button>
       <div class="e-nuxt-button" @click="openURL(url)">接続する</div>
     </div>
+    <!-- localstrageに保存した内容を表示する -->
     <ul>
       <li v-for="list in lists" :key="list.title">
         <a :href="list.url">{{ list.title }}</a>
       </li>
     </ul>
-    <!-- <b-button variant="danger" @click="clearBookmarks()">Clear</b-button>
-    <div class="container" style="background-color: pink;">
-      <ul>
-        <li v-for="item in items" :key="item.id" style="list-style: none;">{{ item.id }}{{ item.name }}</li>
-      </ul>
-    </div> -->
   </div>
 </template>
 
 <script>
-const { shell } = require('electron');
+const { shell } = require("electron");
 export default {
   components: {},
   created() {
-    localStorage.setItem('bookmarks', '[]');
+    localStorage.setItem("bookmarks", "[]");
     this.loadBookmarks();
   },
   data() {
     return {
-      url: 'https://www.yahoo.co.jp',
+      url: "https://www.yahoo.co.jp",
       lists: [],
-      items: []
+      items: [],
     };
   },
-  // async asyncData({ $axios }) {
-  //   const items = await $axios.$get("http://localhost:5000");
-  //   console.log(items);
-  //   return { items };
-  // },
-
   methods: {
-    //URLを別ブラウザで開く
+    /** URLを別ブラウザで開く */
     openURL(url) {
       shell.openExternal(url);
     },
-    //LocalStrageを全件クリアする
+    /** LocalStrageを全件クリアする */
     clearBookmarks() {
-      localStorage.setItem('bookmarks', '[]');
+      localStorage.setItem("bookmarks", "[]");
       this.loadBookmarks();
     },
-    //LocalStrageを読み込む
+    /** LocalStrageを読み込む */
     loadBookmarks() {
-      this.lists = JSON.parse(localStorage.getItem('bookmarks'));
+      this.lists = JSON.parse(localStorage.getItem("bookmarks"));
     },
-    //LocalStrageに保存する
+    /** LocalStrageに保存する */
     saveBookmark() {
       //URLをfetchして、titie情報を取得する
       const self = this;
-      fetch(this.url).then(function (response) {
-        return response.text();
-      })
+      fetch(this.url)
+        .then(function (response) {
+          return response.text();
+        })
         .then(function (text) {
           const parser = new DOMParser();
-          return parser.parseFromString(text, 'text/html');
+          return parser.parseFromString(text, "text/html");
         })
         .then(function (nodes) {
-          return nodes.querySelector('title').innerHTML;
+          return nodes.querySelector("title").innerHTML;
         })
         .then(function (title) {
           const bookmark = {
             title: title,
-            url: self.url
-          }
+            url: self.url,
+          };
           self.lists.push(bookmark);
-          localStorage.setItem('bookmarks', JSON.stringify(self.lists));
+          localStorage.setItem("bookmarks", JSON.stringify(self.lists));
           self.loadBookmarks();
-        })
-    }
+        });
+    },
   },
 };
 </script>
@@ -95,6 +85,8 @@ h1 {
 }
 
 .e-nuxt-button {
+  width: 120px;
+  text-align: center;
   color: #364758;
   padding: 5px 20px;
   border: 1px solid #397c6d;

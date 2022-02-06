@@ -112,12 +112,12 @@ export default {
 
 <style>
 .container{
-    margin:0;
+    /* margin:0;
     padding:0;
     color:white;
     text-align: center;
     background-color:rgb(42, 89, 102);
-    width:300px;
+    width:300px; */
     /* background: url("~@/assets/natural-wine.jpeg"),no-repeat,fixed;
     background-size: cover;
     background-repeat: no-repeat; */

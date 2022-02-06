@@ -2,9 +2,10 @@
   <!-- メニューヘッダー部分 -->
   <header class="main-header">
   <nav> 
+      <div><nuxt-link to="/login" exact> Login </nuxt-link></div>
+      <div><nuxt-link to="/user" exact> User </nuxt-link></div>
       <div><nuxt-link to="/db" exact> DB page </nuxt-link></div>
       <div><nuxt-link to="/book" exact> Book page </nuxt-link></div>
-      <!-- <div><nuxt-link to="/login" exact> Login </nuxt-link></div> -->
   </nav>
   <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
   <label for="openSidebarMenu" class="sidebarIconToggle">
@@ -17,7 +18,7 @@
     <ul class="sidebarMenuInner">
       <li>Jelena Jovanovic <span>Web Developer</span></li>
       <li><a href="https://instagram.com/plavookac" target="_blank">Instagram</a></li>
-      <li><nuxt-link to="/db" exact> DB page </nuxt-link></li>
+      <li><nuxt-link to="/user" exact> USER page </nuxt-link></li>
       <li><nuxt-link to="/book" exact> Book page </nuxt-link></li>
       <li><nuxt-link to="/login" exact> Login </nuxt-link></li>
     </ul>
