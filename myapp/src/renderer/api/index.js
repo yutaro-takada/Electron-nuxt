@@ -1,18 +1,11 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-// const mysql = require("mysql");
 const port = 5000;
-// const connection = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "0000",
-//   database: "testdb",
-// });
 const config = require("./auth/config");
 const auth = require("./auth/auth");
 const jwt = require("jsonwebtoken");
-const cors = require("cors");
+// const cors = require("cors");
 const contractRouter = require("./routes/contract");
 const userRouter = require("./routes/user");
 
@@ -40,9 +33,6 @@ app.post("/register", (req, res) => {
 
 /** ログイン認証 */
 app.get("/api/auth/login", auth, (req, res) => {
-  // console.log(req.body);
-  // const sql = "select * from users where email = ?";
-  // const params = [req.body.email];
   console.log(res);
   res.status(200).json({
     msg: "認証成功",
