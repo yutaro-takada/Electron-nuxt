@@ -1,10 +1,7 @@
 <template>
     <div class="container"> 
-        <!-- {{ input.length }}
-        {{ input }}  -->
         <h5>USER情報の登録</h5>
         <!-- 入力欄 -->
-        <!-- <img src="~@/assets/natural-wine.jpeg" alt=""> -->
         <form>
             <label for="">お名前</label><br>
                 <input v-model="input_name" id="input1-name" name="name" type="text" placeholder="山田 太郎"/><br>
@@ -41,7 +38,7 @@ export default {
         };
     },
     watch:{
-        //全角カナ入力チェック
+        /** 全角カナ入力チェック */
         nameKana(nameKana){
             if(!nameKana || !!nameKana.match(/^[ァ-ヶー　]*$/)){
                 this.$delete(this.errors,'nameKana')
@@ -50,7 +47,7 @@ export default {
                 this.$set(this.errors,"nameKana",'フリガナは全角カナで入力してください')
             }
         },
-        //電話番号入力チェック(ハイフンの入力制限未設定)
+        /** 電話番号入力チェック(ハイフンの入力制限未設定) */
         phoneNumber(phoneNumber) {
             if (!phoneNumber || !!phoneNumber.match(/^[0-9\-]+$/)) {
                 this.$delete(this.errors, 'phoneNumber')
@@ -61,21 +58,21 @@ export default {
     },
     },
     methods: {
-        //登録処理全体[親]
+        /** 登録処理全体[親] */
         confirm(){
             //既に入力がある場合は一度削除する
             if(this.input.length > 0){
                 this.input.splice(0);
             }
-            //登録する内容を配列に格納する
+            /** 登録する内容を配列に格納する */
             this.input.push({name:this.input_name,kana:this.nameKana,mail:this.mail,tel:this.phoneNumber});
-            //全入力項目の必須チェック
+            /** 全入力項目の必須チェック */
             if(this.input[0].input_name == '' || this.input[0].kana == '' || this.input[0].mail == '' || this.input[0].tel == '')
             {
                 alert('全項目を入力してください');
                 return
             }
-            //登録前最終確認
+            /** 登録前最終確認 */
             const result = window.confirm(this.input[0].name + 'を登録します');
             if (result) {
                 this.entry();
@@ -85,9 +82,9 @@ export default {
                 console.log('NO!');
             }
         },
-        //登録処理[子]
+        /** 登録処理[子] */
         async entry() {
-            const items = await this.$axios.$post('http://localhost:5000/users', 
+            const items = await this.$axios.$post('http://localhost:5000/users/register', 
             { 
                 name: this.input_name,
                 kana: this.nameKana,
@@ -99,7 +96,7 @@ export default {
             this.clear();
             location.reload();
         },
-        //入力内容を全てクリアする
+        /** 入力内容を全てクリアする */
         clear() {
             this.input_name = '';
             this.nameKana = '',

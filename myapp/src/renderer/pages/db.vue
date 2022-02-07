@@ -133,7 +133,7 @@ export default {
    * アプリ起動時に動作
    * */
   async asyncData({ $axios }) {
-    const items = await $axios.$get("http://localhost:5000/contract");
+    const items = await $axios.$get("/contract");
     console.log(items);
     return { items };
   },
@@ -188,7 +188,7 @@ export default {
      * @param {int} id 更新対象の〇〇ID
      */
     async edit(id) {
-      let uri = "http://localhost:5000/contract/edit/" + id;
+      let uri = "/contract/edit/" + id;
       const items = await this.$axios.$post(uri, {
         name: this.edit_name,
         mail: this.edit_email,
@@ -213,12 +213,9 @@ export default {
      * 検索条件に一致するデータを取得する
      */
     async selectId() {
-      const items = await this.$axios.$post(
-        "http://localhost:5000/contract/select_id",
-        {
-          id: this.search_id,
-        }
-      );
+      const items = await this.$axios.$post("/contract/select_id", {
+        id: this.search_id,
+      });
       console.log(items);
       this.items = items;
       return { items };
@@ -246,7 +243,7 @@ export default {
      * 登録完了後に入力欄をクリア&再描画する
      */
     async entry() {
-      const items = await this.$axios.$post("http://localhost:5000/contract", {
+      const items = await this.$axios.$post("/contract", {
         name: this.input_name,
         email: this.input_email,
         pass: this.input_password,
@@ -259,7 +256,7 @@ export default {
      * @param {int} id 削除対象の〇〇ID
      */
     async deleteData(id) {
-      let uri = "http://localhost:5000/contract/delete/" + id;
+      let uri = "/contract/delete/" + id;
       await this.$axios.$post(uri);
     },
     /**

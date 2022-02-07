@@ -26,9 +26,11 @@ export default {
     };
   },
   methods: {
-    loginUser() {
-      this.$auth.loginWith("local", {
-        data: this.user,
+    async loginUser() {
+      let uri = "http://localhost:5000/user/api/auth/login/";
+      const items = await this.$axios.$get(uri, {
+        mail: this.user.email,
+        pass: this.user.password,
       });
     },
   },
