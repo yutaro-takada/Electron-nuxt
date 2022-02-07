@@ -43,7 +43,7 @@ export default {
     },
     /** LocalStrageを読み込む */
     loadBookmarks() {
-      this.lists = JSON.parse(localStorage.getItem("bookmarks"));
+      this.lists = JSON.parse(localStorage.getItem("bookmarks")|| null);
     },
     /** LocalStrageに保存する */
     saveBookmark() {

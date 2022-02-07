@@ -4,17 +4,18 @@ const auth = require("../auth/auth");
 
 /** ユーザー登録 */
 router.post("/register", (req, res) => {
-  const payload = {
-    username: req.body.username,
-    email: req.body.email,
-  };
-  const token = jwt.sign(payload, config.jwt.secret, config.jwt.options);
-  const body = {
-    username: req.body.username,
-    email: req.body.email,
-    token: token,
-  };
-  res.status(200).json(body);
+  console.log('登録')
+  // const payload = {
+  //   username: req.body.username,
+  //   email: req.body.email,
+  // };
+  // const token = jwt.sign(payload, config.jwt.secret, config.jwt.options);
+  // const body = {
+  //   username: req.body.username,
+  //   email: req.body.email,
+  //   token: token,
+  // };
+  // res.status(200).json(body);
 });
 
 /** ログイン認証 */

@@ -112,7 +112,7 @@ export default {
       input_password: "",
       /** 取得データ */
       items: [],
-      input: [],
+      // input: [],
       /** 検索 */
       search: [],
       search_id: "",
