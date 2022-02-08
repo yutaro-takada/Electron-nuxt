@@ -3,50 +3,33 @@
     <h5>USER情報の登録</h5>
     <!-- 入力欄 -->
     <form>
-      <label for="">お名前</label><br />
-      <input
-        v-model="input_name"
-        id="input1-name"
-        name="name"
-        type="text"
-        placeholder="山田 太郎"
-      /><br />
-      <span>{{ errors.name }}</span
-      ><br />
-      <label for="">フリガナ</label><br />
-      <input
-        v-model="nameKana"
-        id="input1-name"
-        type="text"
-        name="furigana"
-        placeholder="ヤマダ タロウ"
-      /><br />
-      <span>{{ errors.nameKana }}</span
-      ><br />
-      <label for="">メールアドレス</label><br />
-      <input
-        v-model="mail"
-        id="input-mail"
-        type="text"
-        name="email"
-        placeholder="test@test.com"
-      /><br />
-      <span>{{ errors.mail }}</span
-      ><br />
-      <label for="">電話番号[ハイフンなし]</label><br />
-      <input
-        v-model="phoneNumber"
-        id="input-tel"
-        type="text"
-        name="tel"
-        placeholder="080XXXXXXXX"
-      /><br />
-      <span>{{ errors.phoneNumber }}</span
-      ><br />
+      <label for>お名前</label>
+      <br />
+      <input v-model="input_name" id="input1-name" name="name" type="text" placeholder="山田 太郎" />
+      <br />
+      <span>{{ errors.name }}</span>
+      <br />
+      <label for>フリガナ</label>
+      <br />
+      <input v-model="nameKana" id="input1-name" type="text" name="furigana" placeholder="ヤマダ タロウ" />
+      <br />
+      <span>{{ errors.nameKana }}</span>
+      <br />
+      <label for>メールアドレス</label>
+      <br />
+      <input v-model="mail" id="input-mail" type="text" name="email" placeholder="test@test.com" />
+      <br />
+      <span>{{ errors.mail }}</span>
+      <br />
+      <label for>電話番号[ハイフンなし]</label>
+      <br />
+      <input v-model="phoneNumber" id="input-tel" type="text" name="tel" placeholder="080XXXXXXXX" />
+      <br />
+      <span>{{ errors.phoneNumber }}</span>
+      <br />
       <div class="btn">
-        <b-button variant="primary" @click="confirm()"
-          >入力内容を確認する</b-button
-        ><br />
+        <b-button variant="primary" @click="confirm()">入力内容を確認する</b-button>
+        <br />
         <b-button variant="danger" @click="clear()">All Clear</b-button>
       </div>
     </form>
@@ -141,26 +124,13 @@ export default {
     /** 入力内容を全てクリアする */
     clear() {
       this.input_name = "";
-      this.nameKana = "", 
-      this.mail = "",
-      this.phoneNumber = "";
+      (this.nameKana = ""), (this.mail = ""), (this.phoneNumber = "");
     },
   },
 };
 </script>
 
 <style>
-.container {
-  /* margin:0;
-    padding:0;
-    color:white;
-    text-align: center;
-    background-color:rgb(42, 89, 102);
-    width:300px; */
-  /* background: url("~@/assets/natural-wine.jpeg"),no-repeat,fixed;
-    background-size: cover;
-    background-repeat: no-repeat; */
-}
 h5 {
   padding-top: 5px;
 }

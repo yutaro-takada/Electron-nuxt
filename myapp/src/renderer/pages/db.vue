@@ -16,9 +16,7 @@
       <input id="input-password" v-model="input_password" type="password" />
       <br />
       <div style="margin: 10px; text-align: center">
-        <b-button variant="primary" @click="onAlertEntry()" title="あああ"
-          >登録</b-button
-        >
+        <b-button variant="primary" @click="onAlertEntry()" title="あああ">登録</b-button>
       </div>
     </form>
     <!-- 検索欄 -->
@@ -56,9 +54,7 @@
           <br />
           <input type="text" v-model="edit_pass" />
           <br />
-          <b-button variant="secondary" @click="onAlertEdit()"
-            >更新登録</b-button
-          >
+          <b-button variant="secondary" @click="onAlertEdit()">更新登録</b-button>
           <b-button variant="secondary" @click="hideModal()">閉じる</b-button>
           <p class="close"></p>
         </div>
@@ -68,13 +64,7 @@
     <table class="st-tbl1" v-if="show_table">
       <thead>
         <tr class="red">
-          <th
-            v-for="(header, index) in headers"
-            v-bind:key="index"
-            style="text-align: center"
-          >
-            {{ header }}
-          </th>
+          <th v-for="(header, index) in headers" v-bind:key="index" style="text-align: center">{{ header }}</th>
         </tr>
       </thead>
       <tbody>
@@ -88,9 +78,7 @@
             <a class="button" @click="openModal(item)">編集</a>
           </td>
           <td style="text-align: center; width: 80px">
-            <b-button variant="danger" @click="onAlterDelete(item)"
-              >削除</b-button
-            >
+            <b-button variant="danger" @click="onAlterDelete(item)">削除</b-button>
           </td>
         </tr>
       </tbody>

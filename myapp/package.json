@@ -29,7 +29,10 @@
     "electron": "^16.0.7",
     "electron-builder": "^22.14.5",
     "electron-devtools-installer": "^3.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "nuxt": "^2.15.8",
+    "prettier": "^2.5.1",
     "webpack": "^4.46.0",
     "webpack-node-externals": "^3.0.0"
   },
