@@ -28,7 +28,7 @@ export default {
   methods: {
     async loginUser() {
       let uri = "http://localhost:5000/user/api/auth/login/";
-      const items = await this.$axios.$get(uri, {
+      const items = await this.$axios.$post(uri, {
         mail: this.user.email,
         pass: this.user.password,
       });

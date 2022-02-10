@@ -1,6 +1,9 @@
 const jwt = require("jsonwebtoken");
 const config = require("./config");
 
+/** tokenの認証確認処理
+ * tokenに問題がなければNext()で[auth]を抜けてログイン処理に戻る
+*/
 function auth(req, res, next) {
   try {
     const token = req.headers.token;
