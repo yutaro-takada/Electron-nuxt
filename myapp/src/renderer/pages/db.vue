@@ -28,7 +28,6 @@
         v-model="search_id"
         type="text"
         placeholder="ID入力欄"
-        @blur="blur(search_id)"
       />
       <br />
       <div style="margin: 10px; text-align: center">
@@ -214,9 +213,6 @@ export default {
      * false:登録を中止する
      */
     onAlertEntry() {
-      this.input.push(this.input_name);
-      this.input.push(this.input_email);
-      this.input.push(this.input_password);
       const result = window.confirm(this.input_name + "を登録しますか？");
       if (result) {
         this.entry();
